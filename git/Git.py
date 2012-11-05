@@ -14,12 +14,13 @@ GIT_BINARY = Platform.IS_MAC and '/usr/local/git/bin/git' or '/usr/bin/git'
 GIT_LOG = ['log', '-n1', '--abbrev=40']
 GIT_DIRECTORY = '.'
 
-def run_git_command(command, config=None, cwd=None):
+def run_git_command(command, config=None, cwd=None, log=False):
   binary = GIT_BINARY
   if config and 'git_binary' in config['git']:
     binary = config['git']['binary']
   cwd = cwd or GIT_DIRECTORY
-  LOGGER.info(' '.join(['git'] + list(command)))
+  if log:
+    LOGGER.info(' '.join(['git'] + list(command)))
   return Subprocess.run([binary] + list(command), cwd=cwd)
 
 def run_git_commands(*commands):
