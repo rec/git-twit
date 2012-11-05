@@ -13,6 +13,7 @@ TWITTER_SIZE = 140
 INTRO = 'COMMIT: '
 
 URL_FORMAT = 'https://github.com/%s/%s/commit/%s'
+GIT_LOG = ['log', '-n1', '--abbrev=40']
 
 LOGGER = Log.logger(__name__)
 
@@ -26,8 +27,13 @@ def get_commit_url(commit, config, auth):
 
   return url
 
+def most_recent_commit(**kwds):
+  lines, returncode = Git.run_git_command(GIT_LOG, **kwds)
+  if not returncode:
+    return lines[0].split()[1], lines[-1].strip()
+
 def get_commit_text(config, auth):
-  res = Git.most_recent_commit(config=config)
+  res = most_recent_commit(config=config)
   if res:
     commit, description = res
     try:

@@ -40,8 +40,3 @@ def run_git_commands(log_commands, *commands):
       return False
 
   return True
-
-def most_recent_commit(**kwds):
-  lines, returncode = run_git_command(GIT_LOG, **kwds)
-  if not returncode:
-    return lines[0].split()[1], lines[-1].strip()
