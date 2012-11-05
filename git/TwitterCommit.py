@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import traceback
+
 from git import Git
 from git import ShortenUrl
 from git import Twitter
@@ -25,7 +27,7 @@ def get_commit_url(commit, config, auth):
   return url
 
 def get_commit_text(config, auth):
-  res = Git.most_recent_commit(config)
+  res = Git.most_recent_commit(config=config)
   if res:
     commit, description = res
     try:
@@ -44,6 +46,7 @@ def twitter_commit(config, auth):
   try:
     text = get_commit_text(config, auth)
   except:
+    LOGGER.critical(traceback.format_exc())
     LOGGER.error('Getting commit text failed')
     return
 
