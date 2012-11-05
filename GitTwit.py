@@ -6,6 +6,8 @@ from config import Auth
 from config import Config
 from util import Log
 
+LOG_GIT_MESSAGES = True
+
 if __name__ == '__main__':
   result = TwitterCommit.twitter_commit(Config.CONFIG, Auth.AUTH)
   if result:

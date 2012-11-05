@@ -23,12 +23,13 @@ def run_git_command(command, config=None, cwd=None, log=False):
     LOGGER.info(' '.join(['git'] + list(command)))
   return Subprocess.run([binary] + list(command), cwd=cwd)
 
-def run_git_commands(*commands):
+def run_git_commands(log_commands, *commands):
   for c in commands:
     try:
       lines, returncode = run_git_command(c)
-      for line in lines:
-        LOGGER.info(line)
+      if log_commands or returncode:
+        for line in lines:
+          LOGGER.info(line)
       if returncode:
         return False
 
@@ -39,7 +40,7 @@ def run_git_commands(*commands):
 
   return True
 
-def most_recent_commit(config=None, cwd=None):
-  lines, returncode = run_git_command(GIT_LOG, config)
+def most_recent_commit(log_commands=False, config=None, cwd=None):
+  lines, returncode = run_git_command(log_commands, GIT_LOG, config)
   if not returncode:
     return lines[0].split()[1], lines[-1].strip()
