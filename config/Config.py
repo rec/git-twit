@@ -2,12 +2,12 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 CONFIG = dict(
   git=dict(
-    project='echomesh',
+    project='git-twit',
     user='rec',
   ),
 
   logging=dict(
-    #  file='~/log/echomesh.log',
+    #  file='~/log/git-twit.log',
     level='info',
     ),
 
