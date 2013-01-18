@@ -5,12 +5,29 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import urllib
 import urllib2
 
-from util import Util
-from util import Log
+from echomesh.util import Log
 
 LOGGER = Log.logger(__name__)
 
 SHORTEN_PART = 'yourls-api.php'
+
+from contextlib import closing
+
+LOG_NEW_FILE = False
+
+def _get_and_increment_index_file(f, open=open):
+  index = '0'
+  try:
+    with closing(open(f)) as input:
+      index = str(1 + int(input.read()))
+  except:
+    if LOG_NEW_FILE:
+      print('Creating index file', f)
+
+  with closing(open(f, 'w')) as output:
+    output.write(index)
+  return index
+
 
 def _get_index(config, auth):
   if config['shorten']['use_index_url']:
@@ -22,7 +39,7 @@ def _get_index(config, auth):
       raise
 
   else:
-    return Util.get_and_increment_index_file(config['shorten']['index_file'])
+    return _get_and_increment_index_file(config['shorten']['index_file'])
 
 
 def shorten(url, config, auth):
