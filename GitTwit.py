@@ -1,15 +1,15 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from git import TwitterCommit
+from gittwit.git import TwitterCommit
 
-from config import Auth
-from config import Config
-from util import Log
+from gittwit.config import Auth
+from gittwit.config import Config
+from echomesh.util import Log
 
-LOG_GIT_MESSAGES = True
+LOGGER = Log.logger(__name__)
 
 if __name__ == '__main__':
   result = TwitterCommit.twitter_commit(Config.CONFIG, Auth.AUTH)
   if result:
-    Log.logger(__name__).info('Twittered %s', result)
+    LOGGER.info('Twittered %s', result)
 

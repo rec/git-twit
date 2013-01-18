@@ -2,8 +2,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import twitter
 
-from network import Address
-from util import String
+from echomesh.network import Address
+from gittwit.util import String
 
 TWITTER_SIZE = 140
 

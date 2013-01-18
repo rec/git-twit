@@ -2,12 +2,12 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import traceback
 
-from git import Git
-from git import ShortenUrl
-from git import Twitter
+from gittwit.git import Git
+from gittwit.git import ShortenUrl
+from gittwit.twitter import Twitter
+from gittwit.util import String
 
-from util import Log
-from util import String
+from echomesh.util import Log
 
 TWITTER_SIZE = 140
 INTRO = 'COMMIT: '

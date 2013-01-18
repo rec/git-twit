@@ -1,10 +1,12 @@
 # from __future__ import absolute_import, division, print_function, unicode_literals
 
+# This code is duplicated in https://github.com/rec/git-twit/tree/master/network.
+
 from contextlib import closing
-import os
+import platform
 import socket
 
-from util import Platform
+from echomesh.util import Platform
 
 def ip_address():
   try:
@@ -36,7 +38,7 @@ else:
 
 MAC_ADDRESS = mac_address()
 IP_ADDRESS = ip_address()
-NODENAME = os.uname()[1]
+NODENAME = platform.uname()[1]
 
 def print_all():
   print(mac_address())
